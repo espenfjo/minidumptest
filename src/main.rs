@@ -29,15 +29,6 @@ impl MinidumpReader {
         // Parse the minidump from that slice.
         let dump = Minidump::read(dump_slice)?;
 
-        // // We then transmute it to have a 'static reference. This is
-        // // sound here because `mmap` is owned by `MinidumpReader`,
-        // // and thus won't be dropped while `dump` is in use.
-        // let dump = unsafe {
-        //     std::mem::transmute::<Minidump<'_, &'_ [u8]>, Minidump<'static, &'static [u8]>>(
-        //         tmp_dump,
-        //     )
-        // };
-
         Ok(Self { _mmap: mmap, dump })
     }
 
